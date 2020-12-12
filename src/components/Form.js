@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ContextCategories } from '../context/ContextCategories';
+import { ContextRecipes } from '../context/ContextRecipes';
 
 const Form = () => {
 
@@ -8,6 +9,7 @@ const Form = () => {
         category: ''
     });
     const { categories } = useContext(ContextCategories);
+    const { setSearchRecipes } = useContext(ContextRecipes);
 
     const { name, category } = search;
 
@@ -19,14 +21,12 @@ const Form = () => {
         })
     }
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log('buscando...');
-    }
-
     return (
         <form
-            onSubmit={handleSubmit}
+            onSubmit={e => {
+                e.preventDefault();
+                setSearchRecipes(search);
+            }}
             className="col-12"
         >
             <fieldset className="text-center">
