@@ -9,16 +9,19 @@ const ProviderModal = (props) => {
 
     // crear el state del context
     const [idrecipe, setSavedIdRecipe] = useState(null);
+    const [recipe, setSavedRecipe] = useState({});
 
-    // useEffect(() => {
-    //     const getRecipe = async () => {
-    //         const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-    //         const dataRecipe = await axios.get(url);
+    useEffect(() => {
+        const getRecipe = async () => {
+            if(!idrecipe) return;
 
-    //         setSavedRecipe(dataRecipe.data.drinks);
-    //     }
-    //     getRecipe();
-    // }, []);
+            const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idrecipe}`;
+            const response = await axios.get(url);
+
+            setSavedRecipe(response.data.drinks[0]);
+        }
+        getRecipe();
+    }, [idrecipe]);
 
     return (
         <ContextModal.Provider
