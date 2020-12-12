@@ -13,21 +13,27 @@ const ProviderRecipes = (props) => {
         name: '',
         category: '',
     });
+    const [consult, setSavedConsult] = useState(false);
+    const { name, category } = search;
 
-    // useEffect(() => {
-    //     const getRecipes = async () => {
-    //         const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-    //         const  data = await axios.get(url);
+    useEffect(() => {
+        if(consult) {
+            const getRecipes = async () => {
+                const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}&c=${category}`;
+                const  response = await axios.get(url);
 
-    //         setSavedRecipes();
-    //     }
-    //     getRecipes();
-    // }, []);
+                setSavedRecipes(response.data.drinks);
+                console.log(response.data.drinks)
+            }
+            getRecipes();
+        }
+    }, [search]);
 
     return (
         <ContextRecipes.Provider
             value={{
-                setSearchRecipes
+                setSearchRecipes,
+                setSavedConsult
             }}
         >
             {props.children}

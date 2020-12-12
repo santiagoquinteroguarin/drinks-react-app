@@ -9,9 +9,7 @@ const Form = () => {
         category: ''
     });
     const { categories } = useContext(ContextCategories);
-    const { setSearchRecipes } = useContext(ContextRecipes);
-
-    const { name, category } = search;
+    const { setSearchRecipes, setSavedConsult } = useContext(ContextRecipes);
 
     // funcion para obtener datos del form
     const getDataRecipe = e => {
@@ -26,6 +24,7 @@ const Form = () => {
             onSubmit={e => {
                 e.preventDefault();
                 setSearchRecipes(search);
+                setSavedConsult(true);
             }}
             className="col-12"
         >
@@ -40,7 +39,6 @@ const Form = () => {
                         name="name"
                         className="form-control"
                         placeholder="Buscar por Ingredientes"
-                        value={name}
                         onChange={getDataRecipe}
                     />
                 </div>
@@ -49,7 +47,6 @@ const Form = () => {
                     <select 
                         className="form-control"
                         name="category"
-                        value={category}
                         onChange={getDataRecipe}
                     >
                         <option value="">-- Selecciona Categoria --</option>
