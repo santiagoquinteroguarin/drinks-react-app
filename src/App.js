@@ -1,24 +1,27 @@
 import React from 'react';
 import Header from './components/Header';
 import Form from './components/Form';
-import ContextCategories from './context/ContextCategories';
-import ContextRecipes from './context/ContextRecipes';
 import ListRecipes from './components/ListRecipes';
+import CategoriesProvider from './context/ContextCategories';
+import RecipesProvider from './context/ContextRecipes';
+import ModalProvider from './context/ContextModal';
 
 function App() {
   return (
-    <ContextCategories>
-      <ContextRecipes>
-        <Header/>
+    <CategoriesProvider>
+      <RecipesProvider>
+        <ModalProvider>
+          <Header/>
 
-        <div className="container mt-5">
-          <div className="row">
-            <Form/>
+          <div className="container mt-5">
+            <div className="row">
+              <Form/>
+            </div>
+            <ListRecipes/>
           </div>
-          <ListRecipes/>
-        </div>
-      </ContextRecipes>
-    </ContextCategories>
+        </ModalProvider>
+      </RecipesProvider>
+    </CategoriesProvider>
   );
 }
 

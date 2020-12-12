@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ContextModal from '../context/ContextModal';
 
 const Recipe = ({recipe}) => {
+
+    const { setSavedIdRecipe } = useContext(ContextModal);
+
     return (
         <div className="col-md-4 mb-3">
             <div className="card">
@@ -12,6 +16,9 @@ const Recipe = ({recipe}) => {
                     <button
                         type="button"
                         className="btn btn-block btn-primary"
+                        onClick={() => {
+                            setSavedIdRecipe(recipe.idDrink)
+                        }}
                     >
                         Ver Receta
                     </button>
