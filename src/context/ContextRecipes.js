@@ -23,7 +23,6 @@ const ProviderRecipes = (props) => {
                 const  response = await axios.get(url);
 
                 setSavedRecipes(response.data.drinks);
-                console.log(response.data.drinks)
             }
             getRecipes();
         }
@@ -32,6 +31,7 @@ const ProviderRecipes = (props) => {
     return (
         <ContextRecipes.Provider
             value={{
+                recipes,
                 setSearchRecipes,
                 setSavedConsult
             }}
