@@ -9,12 +9,12 @@ const ProviderModal = (props) => {
 
     // crear el state del context
     const [idrecipe, setSavedIdRecipe] = useState(null);
-    const [inforecipe, setSavedRecipe] = useState({});
+    const [information, setSavedRecipe] = useState({});
+    
 
     useEffect(() => {
         const getRecipe = async () => {
             if(!idrecipe) return;
-
             const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idrecipe}`;
             const response = await axios.get(url);
 
@@ -26,7 +26,7 @@ const ProviderModal = (props) => {
     return (
         <ContextModal.Provider
             value={{
-                inforecipe,
+                information,
                 setSavedIdRecipe,
                 setSavedRecipe
             }}

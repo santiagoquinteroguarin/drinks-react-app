@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
-import ContextModal from '../context/ContextModal';
+import { ContextModal } from '../context/ContextModal';
+import uuid from 'react-uuid';
 
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,7 +19,8 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
     paper: {
         position: 'absolute',
-        width: 600,
+        height: 'auto',
+        width: 450,
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
@@ -41,7 +43,23 @@ const Recipe = ({recipe}) => {
         setOpen(false);
     }
 
-    const { inforecipe, setSavedIdRecipe, setSavedRecipe } = useContext(ContextModal);
+    const { information, setSavedIdRecipe, setSavedRecipe } = useContext(ContextModal);
+
+    // muestra y formatea los ingredientes
+    const showIngredients = information => {
+        let ingredients = [];
+        for(let i = 1; i < 16; i++) {
+            if(information[`strIngredient${i}`]) {
+                ingredients.push(
+                    <li key={uuid()}>
+                        {information[`strIngredient${i}`]} {information[`strMeasure${i}`]}
+                    </li>
+                )
+            }
+        }
+
+        return ingredients;
+    }
 
     return (
         <div className="col-md-4 mb-3">
@@ -63,7 +81,7 @@ const Recipe = ({recipe}) => {
                     </button>
 
                     <Modal
-                        opem={open}
+                        open={open}
                         onClose={() => {
                             setSavedIdRecipe(null);
                             setSavedRecipe({});
@@ -71,12 +89,17 @@ const Recipe = ({recipe}) => {
                         }}
                     >
                         <div style={modalStyle} className={classes.paper}>
-                            <h2>{inforecipe.strDrink}</h2>
+                            <h2>{information.strDrink}</h2>
                             <h3 className="mt-4">Instrucciones</h3>
                             <p>
-                                {inforecipe.strInstructions}
+                                {information.strInstructions}
                             </p>
-                            <img className="img-fluid my-4" src={inforecipe.strDrinkThumb} alt={inforecipe.strDrinkThumb}/>
+                            <img className="img-fluid my-4" src={information.strDrinkThumb} alt={information.strDrinkThumb}/>
+
+                            <h3>Ingredientes y Cantidades</h3>
+                            <ul>
+                                {showIngredients(information)}
+                            </ul>
                         </div>
                     </Modal>
                 </div>

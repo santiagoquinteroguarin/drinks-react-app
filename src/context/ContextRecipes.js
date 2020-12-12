@@ -20,13 +20,13 @@ const ProviderRecipes = (props) => {
         if(consult) {
             const getRecipes = async () => {
                 const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}&c=${category}`;
-                const  response = await axios.get(url);
+                const response = await axios.get(url);
 
                 setSavedRecipes(response.data.drinks);
             }
             getRecipes();
         }
-    }, [search]);
+    }, [search, name, category, consult]);
 
     return (
         <ContextRecipes.Provider
