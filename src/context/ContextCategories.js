@@ -17,6 +17,7 @@ const ProviderCategories = (props) => {
 
             setSavedCategories(dataCategories.data.drinks);
         }
+        getCategories();
     }, []);
 
     return (
