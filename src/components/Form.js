@@ -3,7 +3,7 @@ import { ContextCategories } from '../context/ContextCategories';
 
 const Form = () => {
 
-    const { hola } = useContext(ContextCategories);
+    const { categories } = useContext(ContextCategories);
 
     return (
         <form

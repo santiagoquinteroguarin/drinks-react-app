@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 // crear context, siempre que se crea un context se necesita un provider
 export const ContextCategories = createContext();
@@ -7,11 +8,22 @@ export const ContextCategories = createContext();
 const ProviderCategories = (props) => {
 
     // crear el state del context
-    const [hola, guardarHola] = useState('hola');
+    const [categories, setSavedCategories] = useState([]);
+
+    useEffect(() => {
+        const getCategories = async () => {
+            const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+            const dataCategories = await axios.get(url);
+
+            setSavedCategories(dataCategories.data.drinks);
+        }
+    }, []);
 
     return (
         <ContextCategories.Provider
-            value={{hola}}
+            value={{
+                categories
+            }}
         >
             {props.children}
         </ContextCategories.Provider>
