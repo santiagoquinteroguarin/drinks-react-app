@@ -1,12 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ContextCategories } from '../context/ContextCategories';
 
 const Form = () => {
 
+    const [search, setSavedSearch] = useState({
+        name: '',
+        category: ''
+    });
     const { categories } = useContext(ContextCategories);
+
+    const { name, category } = search;
+
+    // funcion para obtener datos del form
+    const getDataRecipe = e => {
+        setSavedSearch({
+            ...search,
+            [e.target.name] : e.target.value
+        })
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log('buscando...');
+    }
 
     return (
         <form
+            onSubmit={handleSubmit}
             className="col-12"
         >
             <fieldset className="text-center">
@@ -20,6 +40,8 @@ const Form = () => {
                         name="name"
                         className="form-control"
                         placeholder="Buscar por Ingredientes"
+                        value={name}
+                        onChange={getDataRecipe}
                     />
                 </div>
 
@@ -27,6 +49,8 @@ const Form = () => {
                     <select 
                         className="form-control"
                         name="category"
+                        value={category}
+                        onChange={getDataRecipe}
                     >
                         <option value="">-- Selecciona Categoria --</option>
                         {categories.map(category => (
