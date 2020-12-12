@@ -41,7 +41,7 @@ const Recipe = ({recipe}) => {
         setOpen(false);
     }
 
-    const { setSavedIdRecipe } = useContext(ContextModal);
+    const { inforecipe, setSavedIdRecipe, setSavedRecipe } = useContext(ContextModal);
 
     return (
         <div className="col-md-4 mb-3">
@@ -66,10 +66,18 @@ const Recipe = ({recipe}) => {
                         opem={open}
                         onClose={() => {
                             setSavedIdRecipe(null);
+                            setSavedRecipe({});
                             handleClose();
                         }}
                     >
-                        <div style={modalStyle} className={classes.paper}></div>
+                        <div style={modalStyle} className={classes.paper}>
+                            <h2>{inforecipe.strDrink}</h2>
+                            <h3 className="mt-4">Instrucciones</h3>
+                            <p>
+                                {inforecipe.strInstructions}
+                            </p>
+                            <img className="img-fluid my-4" src={inforecipe.strDrinkThumb} alt={inforecipe.strDrinkThumb}/>
+                        </div>
                     </Modal>
                 </div>
             </div>

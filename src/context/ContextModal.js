@@ -9,7 +9,7 @@ const ProviderModal = (props) => {
 
     // crear el state del context
     const [idrecipe, setSavedIdRecipe] = useState(null);
-    const [recipe, setSavedRecipe] = useState({});
+    const [inforecipe, setSavedRecipe] = useState({});
 
     useEffect(() => {
         const getRecipe = async () => {
@@ -26,7 +26,9 @@ const ProviderModal = (props) => {
     return (
         <ContextModal.Provider
             value={{
-                setSavedIdRecipe
+                inforecipe,
+                setSavedIdRecipe,
+                setSavedRecipe
             }}
         >
             {props.children}
